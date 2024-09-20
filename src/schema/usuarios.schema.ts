@@ -5,7 +5,7 @@ export class Usuarios {
     @Prop()
     apodo: string;
     @Prop()
-    mocos: string[];
+    mocos: boolean[];
     @Prop()
     completed: number;
 }
