@@ -10,19 +10,23 @@ export class ApodoController {
     constructor(private apodoServices: ApodoService){}
 
     @Post()
-    registerUsers(@Body() usuarioApodo: DTOUsuarios): DtoBaseResponse {
-        return this.apodoServices.registerApodos(usuarioApodo);
+    async registerUsers(@Body() usuarioApodo: DTOUsuarios): Promise<DtoBaseResponse> {
+        return await this.apodoServices.registerApodos(usuarioApodo);
     }
-
+    
     @Patch('/cambiar/:id')
     async updateApodo(@Param('id') id: string, @Body() newApodo: DTOUsuarios): Promise<Usuarios> {
         return await this.apodoServices.updateApodos(id, newApodo);
     }
 
     @Patch('/mocos/:id')
-    async updateMocos(@Param('id') id: string): Promise<Usuarios> {
-        return await this.apodoServices.updateProgress(id);
+    async updateMocos(
+        @Param('id') id: string, 
+        @Body('registro') registro: number // Recibimos el número (1-5) desde el frontend
+    ): Promise<Usuarios> {
+        return await this.apodoServices.updateProgress(id, registro);
     }
+    
 
     @Get()
     getUsuarios(){
